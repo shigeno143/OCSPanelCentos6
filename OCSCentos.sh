@@ -132,8 +132,8 @@ rm -f OCSPanelCentos6.zip
 chown -R nginx:nginx /home/vps/public_html
 chmod -R +rw /home/vps/public_html
 chmod 777 /home/vps/public_html/config
-chmod 777 /home/vps/public_html/config/config.ini
-chmod 777 /home/vps/public_html/config/route.ini
+chmod 777 /home/vps/public_html/config/inc.php
+chmod 777 /home/vps/public_html/config/route.php
 
 # OCS Panel Configuration
 clear
