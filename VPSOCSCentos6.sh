@@ -51,10 +51,10 @@ rpm -Uvh epel-release-6-8.noarch.rpm
 rpm -Uvh remi-release-6.rpm
 
 if [ "$OS" == "x86_64" ]; then
-  wget https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+  wget http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
   rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 else
-  wget https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+  wget http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
   rpm -Uvh rpmforge-release-0.5.3-1.el6.rf.i686.rpm
 fi
 
@@ -130,7 +130,7 @@ service nginx restart
 #Install zip shigeno Script
 yum -y install zip unzip
 cd /home/vps/public_html
-wget https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/OCSPanelCentos6.zip
+wget http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/OCSPanelCentos6.zip
 unzip OCSPanelCentos6.zip
 rm -f OCSPanelCentos6.zip
 chown -R nginx:nginx /home/vps/public_html
@@ -220,14 +220,14 @@ echo "clear" >> .bash_profile
 echo "screenfetch" >> .bash_profile
 
 # install openvpn
-wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/openvpn-centos.tar"
+wget -O /etc/openvpn/openvpn.tar "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/openvpn-centos.tar"
 cd /etc/openvpn/
 tar xf openvpn.tar
-wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/1194-centos.conf"
+wget -O /etc/openvpn/1194.conf "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/1194-centos.conf"
 if [ "$OS" == "x86_64" ]; then
-  wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/1194-centos64.conf"
+  wget -O /etc/openvpn/1194.conf "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/1194-centos64.conf"
 fi
-wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/iptables.up.rules"
+wget -O /etc/iptables.up.rules "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/iptables.up.rules"
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
 sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.d/rc.local
 MYIP=`dig +short myip.opendns.com @resolver1.opendns.com`;
@@ -243,7 +243,7 @@ cd
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/open-vpn.conf"
+wget -O /etc/openvpn/client.ovpn "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/open-vpn.conf"
 sed -i $MYIP2 /etc/openvpn/client.ovpn;
 cp client.ovpn /home/vps/public_html/
 cd
@@ -277,9 +277,9 @@ mkdir /var/lib/premium-script
 chkconfig pptpd on
 
 # install badvpn
-wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/badvpn-udpgw"
+wget -O /usr/bin/badvpn-udpgw "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/badvpn-udpgw"
 if [ "$OS" == "x86_64" ]; then
-  wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/badvpn-udpgw64"
+  wget -O /usr/bin/badvpn-udpgw "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/badvpn-udpgw64"
 fi
 sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /etc/rc.local
 sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /etc/rc.d/rc.local
@@ -288,15 +288,15 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 
 # install mrtg
 cd /etc/snmp/
-wget -O /etc/snmp/snmpd.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/snmpd.conf"
-wget -O /root/mrtg-mem.sh "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/mrtg-mem.sh"
+wget -O /etc/snmp/snmpd.conf "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/snmpd.conf"
+wget -O /root/mrtg-mem.sh "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/mrtg-mem.sh"
 chmod +x /root/mrtg-mem.sh
 service snmpd restart
 chkconfig snmpd on
 snmpwalk -v 1 -c public localhost | tail
 mkdir -p /home/vps/public_html/mrtg
 cfgmaker --zero-speed 100000000 --global 'WorkDir: /home/vps/public_html/mrtg' --output /etc/mrtg/mrtg.cfg public@localhost
-curl "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/mrtg.conf" >> /etc/mrtg.cfg
+curl "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/mrtg.conf" >> /etc/mrtg.cfg
 sed -i 's/WorkDir: \/var\/www\/mrtg/# WorkDir: \/var\/www\/mrtg/g' /etc/mrtg/mrtg.cfg
 sed -i 's/# Options\[_\]: growright, bits/Options\[_\]: growright/g' /etc/mrtg/mrtg.cfg
 indexmaker --output=/home/vps/public_html/mrtg/index.html /etc/mrtg/mrtg.cfg
@@ -322,7 +322,7 @@ chkconfig dropbear on
 
 # install vnstat gui
 cd /home/vps/public_html/
-wget https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/vnstat_php_frontend-1.5.1.tar.gz
+wget http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/vnstat_php_frontend-1.5.1.tar.gz
 tar xf vnstat_php_frontend-1.5.1.tar.gz
 rm vnstat_php_frontend-1.5.1.tar.gz
 mv vnstat_php_frontend-1.5.1 vnstat
@@ -387,8 +387,8 @@ chkconfig squid on
 
 # install stunnel
 yum install stunnel
-wget -O /etc/pki/tls/certs/stunnel.pem "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/stunnel.pem"
-wget -O /etc/stunnel/stunnel.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/stunnel.conf"
+wget -O /etc/pki/tls/certs/stunnel.pem "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/stunnel.pem"
+wget -O /etc/stunnel/stunnel.conf "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/stunnel.conf"
 mkdir /var/run/stunnel
 chown nobody:nobody /var/run/stunnel
 stunnel /etc/stunnel/stunnel.conf
@@ -396,7 +396,7 @@ stunnel /etc/stunnel/stunnel.conf
 # install ddos deflate
 cd
 yum -y install dnsutils dsniff
-wget https://github.com/jgmdev/ddos-deflate/archive/master.zip
+wget http://github.com/jgmdev/ddos-deflate/archive/master.zip
 unzip master.zip
 cd ddos-deflate-master
 ./install.sh
@@ -449,7 +449,7 @@ yum -y install bmon
 
 # download script
 cd
-wget https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/install-premiumscript.sh -O - -o /dev/null|sh
+wget http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/install-premiumscript.sh -O - -o /dev/null|sh
 
 # cron
 service crond start
