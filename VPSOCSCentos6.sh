@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#Requirement
+if [ ! -e /usr/bin/curl ]; then
+   yum -y update && yum -y upgrade
+   yum -y install curl
+fi
+
 #Initializing var
 if [[ "$USER" != 'root' ]]; then
 	echo "Run this script with root privileges."
@@ -14,9 +20,6 @@ else
 	echo "This script installer only works on Centos system."
 	exit
 fi
-
-#Requirement
-yum -y update && yum -y install curl
 
 # Checking Status
 MYIP=$(curl -4 icanhazip.com)
@@ -43,6 +46,9 @@ echo ""
 echo "All questions have been answered."
 read -n1 -r -p "Press any key to continue ..."
 
+# install wget and curl
+yum -y install wget curl
+
 #Set Repo
 cd
 wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
@@ -61,9 +67,6 @@ fi
 sed -i 's/enabled = 1/enabled = 0/g' /etc/yum.repos.d/rpmforge.repo
 sed -i -e "/^\[remi\]/,/^\[.*\]/ s|^\(enabled[ \t]*=[ \t]*0\\)|enabled=1|" /etc/yum.repos.d/remi.repo
 rm -f *.rpm
-
-# update
-yum -y update
 	
 #Install MySQL & Create Database
 yum -y install mysql-server
