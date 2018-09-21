@@ -249,9 +249,16 @@ cd
 
 # configure openvpn client config
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/open-vpn.conf"
-sed -i $MYIP2 /etc/openvpn/client.ovpn;
-cp client.ovpn /home/vps/public_html/
+wget -O /etc/openvpn/1194-client.ovpn "https://raw.githubusercontent.com/daybreakersx/premscript/master/centos6/open-vpn.conf"
+sed -i $MYIP2 /etc/openvpn/1194-client.ovpn;
+PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1`;
+useradd -M -s /bin/false Daybreakersx
+echo "Daybreakersx:$PASS" | chpasswd
+echo "Daybreakersx" > pass.txt
+echo "$PASS" >> pass.txt
+tar cf client.tar 1194-client.ovpn pass.txt
+cp client.tar /home/vps/public_html/
+cp 1194-client.ovpn /home/vps/public_html/
 cd
 
 #install PPTP
