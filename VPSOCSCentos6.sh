@@ -64,7 +64,6 @@ rm -f *.rpm
 
 # update
 yum -y update
-yum -y groupinstall 'Development Tools' && yum -y install cmake && yum -y install expect-devel
 	
 #Install MySQL & Create Database
 yum -y install mysql-server
