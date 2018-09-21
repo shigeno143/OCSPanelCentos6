@@ -214,7 +214,7 @@ chkconfig vnstat on
 
 # install screenfetch
 cd
-wget -O /usr/bin/screenfetch "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/screenfetch"
+wget -O /usr/bin/screenfetch "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/screenfetch"
 chmod +x /usr/bin/screenfetch
 echo "clear" >> .bash_profile
 echo "screenfetch" >> .bash_profile
@@ -288,7 +288,7 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 
 # setting banner
 rm /etc/issue.net
-wget -O /etc/issue.net "https://raw.githubusercontent.com/daybreakersx/premscript/master/issue.net"
+wget -O /etc/issue.net "http://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/issue.net"
 sed -i 's@#Banner@Banner@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 service ssh restart
