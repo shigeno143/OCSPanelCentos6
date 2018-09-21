@@ -67,7 +67,11 @@ fi
 sed -i 's/enabled = 1/enabled = 0/g' /etc/yum.repos.d/rpmforge.repo
 sed -i -e "/^\[remi\]/,/^\[.*\]/ s|^\(enabled[ \t]*=[ \t]*0\\)|enabled=1|" /etc/yum.repos.d/remi.repo
 rm -f *.rpm
-	
+
+# update
+yum -y update
+yum -y groupinstall 'Development Tools' && yum -y install cmake && yum -y install expect-devel
+
 #Install MySQL & Create Database
 yum -y install mysql-server
 chown -R mysql:mysql /var/lib/mysql/
