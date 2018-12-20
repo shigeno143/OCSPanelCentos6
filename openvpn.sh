@@ -104,10 +104,10 @@ wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/Clrkz/VPSA
 service nginx restart
 
 # install openvpn
-wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/openvpn-debian.tar"
+wget -O /etc/openvpn/openvpn.tar "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/openvpn-centos.tar"
 cd /etc/openvpn/
 tar xf openvpn.tar
-wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/1194.conf"
+wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/1194-centos.conf"
 service openvpn restart
 sysctl -w net.ipv4.ip_forward=1
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
@@ -119,7 +119,7 @@ service openvpn restart
 
 # konfigurasi openvpn
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/Clrkz/VPSAutoScrptz/master/client-1194.conf"
+wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/open-vpn.conf"
 sed -i $MYIP2 /etc/openvpn/client.ovpn;
 cp client.ovpn /home/vps/public_html/
 
