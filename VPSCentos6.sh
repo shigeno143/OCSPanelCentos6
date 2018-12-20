@@ -302,44 +302,38 @@ chkconfig fail2ban on
 # install squid
 yum -y install squid
 cat > /etc/squid/squid.conf <<-END
-acl localnet src 10.8.0.0/24	# RFC1918 possible internal network
-acl localnet src 172.16.0.0/12	# RFC1918 possible internal network
-acl localnet src 192.168.0.0/16	# RFC1918 possible internal network
-acl localnet src fc00::/7       # RFC 4193 local private network range
-acl localnet src fe80::/10      # RFC 4291 link-local (directly plugged) machines
+acl manager proto cache_object
+acl localhost src 127.0.0.1/32 ::1
+acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 ::1
+acl localnet src 10.0.0.0/8
+acl localnet src 172.16.0.0/12
+acl localnet src 192.168.0.0/16
+acl localnet src fc00::/7
+acl localnet src fe80::/10
 acl SSL_ports port 443
-acl SSL_ports port 992
-acl SSL_ports port 995
-acl SSL_ports port 5555
-acl SSL_ports port 80
-acl Safe_ports port 80		# http
-acl Safe_ports port 21		# ftp
-acl Safe_ports port 443		# https
-acl Safe_ports port 70		# gopher
-acl Safe_ports port 210		# wais
-acl Safe_ports port 1025-65535	# unregistered ports
-acl Safe_ports port 280		# http-mgmt
-acl Safe_ports port 488		# gss-http
-acl Safe_ports port 591		# filemaker
-acl Safe_ports port 777		# multiling http
-acl Safe_ports port 992		# mail
-acl Safe_ports port 995		# mail
+acl Safe_ports port 80
+acl Safe_ports port 21
+acl Safe_ports port 443
+acl Safe_ports port 70
+acl Safe_ports port 210
+acl Safe_ports port 1025-65535
+acl Safe_ports port 280
+acl Safe_ports port 488
+acl Safe_ports port 591
+acl Safe_ports port 777
 acl CONNECT method CONNECT
-acl vpnservers dst $MYIP
-acl vpnservers dst 127.0.0.1
-http_access deny !Safe_ports
-http_access deny CONNECT !SSL_ports
-http_access allow localhost manager
+acl SSH dst xxxxxxxxx-xxxxxxxxx/32
+http_access allow SSH
+http_access allow manager localhost
+http_access deny manager
 http_access allow localnet
 http_access allow localhost
-http_access allow vpnservers
-http_access deny !vpnservers
-http_access deny manager
 http_access allow all
-http_port 0.0.0.0:8080
-http_port 0.0.0.0:8989
-http_port 0.0.0.0:3128
-http_port 0.0.0.0:8000
+http_port 8888
+http_port 8080
+http_port 8000
+http_port 80
+http_port 3128
 hierarchy_stoplist cgi-bin ?
 coredump_dir /var/spool/squid
 refresh_pattern ^ftp: 1440 20% 10080
