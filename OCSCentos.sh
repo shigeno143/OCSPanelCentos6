@@ -103,8 +103,8 @@ yum -y install nginx php php-fpm php-cli php-mysql php-mcrypt
 rm -f /usr/share/nginx/html/index.html
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup
 mv /etc/nginx/conf.d/vps.conf /etc/nginx/conf.d/vps.conf.backup
-wget -O /etc/nginx/nginx.conf "http://script.hostingtermurah.net/repo/blog/ocspanel-centos6/nginx.conf"
-wget -O /etc/nginx/conf.d/vps.conf "http://script.hostingtermurah.net/repo/blog/ocspanel-centos6/vps.conf"
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/nginx.conf"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/shigeno143/OCSPanelCentos6/master/vps.conf"
 sed -i 's/www-data/nginx/g' /etc/nginx/nginx.conf
 sed -i 's/apache/nginx/g' /etc/php-fpm.d/www.conf
 sed -i 's/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php.ini
